@@ -1,0 +1,14 @@
+<mat-toolbar color="">Webapp-for-Employees: Upgraded to Angular7</mat-toolbar>
+
+<button mat-button [matMenuTriggerFor]="vault">Vault</button>
+<mat-menu #vault="matMenu">
+    <button mat-menu-item (click)="initPayslipComponent()">Payslip</button>
+</mat-menu>
+
+<button mat-button [matMenuTriggerFor]="leaves">Leaves</button>
+<mat-menu #leaves="matMenu">
+    <button mat-menu-item (click)="initLeaveComponent()">Apply</button>
+    <button mat-menu-item (click)="initLeaveComponent()">Balance</button>
+</mat-menu>
+
+<button mat-button (click)="logout()">Logout</button>

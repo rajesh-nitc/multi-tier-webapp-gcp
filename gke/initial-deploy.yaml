@@ -1,0 +1,39 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: deploy-service
+  namespace: kube-system
+  labels:
+    app: deploy
+spec:
+  selector:
+    app: deploy
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: deploy-port
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deploy-deployment
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      app: deploy
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: deploy
+    spec:
+      serviceAccountName: deploy-service-account
+      automountServiceAccountToken: true
+      containers:
+        - name: deploy-container
+          image: "rajesh12/gkedeploy"
+          ports:
+          - name: deploy-port
+            containerPort: 3003

@@ -1,0 +1,29 @@
+<mat-card>
+  <mat-card-header>Leave Balance</mat-card-header>
+  <mat-card-content>You have {{total}} leaves left: Casual: {{casual}}, Earned: {{earned}}, Sick: {{sick}}
+  </mat-card-content>
+</mat-card>
+
+<mat-card>
+  <mat-card-header>Apply for Leave</mat-card-header>
+  <mat-card-content>
+    <form [formGroup]="myGroup" (ngSubmit)="saveLeaveTxn(myGroup)">
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker1" placeholder="from" formControlName="from">
+        <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput [matDatepicker]="picker2" placeholder="to" formControlName="to">
+        <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="category" formControlName="category">
+          <mat-option *ngFor="let cat of categories" [value]="cat.value">{{cat.name}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <button mat-raised-button type="submit" color="accent">Apply</button>
+    </form>
+  </mat-card-content>
+</mat-card>

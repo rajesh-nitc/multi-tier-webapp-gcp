@@ -1,0 +1,56 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysqlservice-master
+  labels:
+    app.kubernetes.io/name: {{ .Values.app.dbName }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: 3306
+  selector:
+    app.kubernetes.io/name: {{ .Values.app.dbName }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.app.dbName }}-deployment"
+  labels:
+    app.kubernetes.io/name: {{ .Values.app.dbName }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: {{ .Values.app.dbName }}
+      app.kubernetes.io/instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: {{ .Values.app.dbName }}
+        app.kubernetes.io/instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - image: mysql:5.6
+          name: {{ .Values.app.dbName }}
+          resources:
+            requests:
+              cpu: 50m
+          env:
+          - name: MYSQL_ROOT_PASSWORD
+            value: password
+          - name: MYSQL_DATABASE
+            value: app
+          ports:
+          - containerPort: 3306
+            name: mysql
+          volumeMounts:
+          - name: mysql-storage
+            mountPath: /home/rajesh_nitc/mysql-storage
+      volumes:
+      - name: mysql-storage
+        emptyDir: {}
+      nodeSelector:
+        label: usehostdisk

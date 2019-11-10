@@ -1,0 +1,7 @@
+runtime: nodejs10
+env_variables:
+  ENV: production
+  PORT: 8080
+  MYSQL_HOST: '35.200.144.204'
+  MYSQL_DATABASE: db
+  MYSQL_ROOT_PASSWORD: root

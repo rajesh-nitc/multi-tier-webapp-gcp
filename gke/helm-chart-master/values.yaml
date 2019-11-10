@@ -1,0 +1,27 @@
+replicaCount: 1
+
+imageclient:
+  repository: rajesh12/angular
+  tag: master
+  pullPolicy: Always
+
+imageserver:
+  repository: rajesh12/node
+  tag: master
+  pullPolicy: Always
+
+service:
+  type: LoadBalancer
+  port: 80
+
+app:
+  frontendName: angular
+  backendName: node
+  dbName: mysql
+  nginx: nginx
+
+frontendContainersPort: 80
+backendContainersPort: 3002
+
+vc:
+  mysql: mysql
