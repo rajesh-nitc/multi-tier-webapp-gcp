@@ -11,4 +11,4 @@ Each project deploy the webapp which is a 3-tier web application with frontend i
 gcp account
 
 ## Getting Started
-This project has been decrecated and may be used for reference purpose
+This project has been decrecated and could be used for reference purpose
